@@ -13,3 +13,5 @@ RUN apt-get -y install autoconf automake libtool make g++ pkg-config libboost-de
 RUN git clone git://github.com/openstreetmap/osm2pgsql.git
 RUN cd osm2pgsql && ./autogen.sh && ./configure && make && make install
 RUN export PATH=~/osm2pgsql/:$PATH
+
+ADD bootstrap.sh /etc/my_init.d/099_bootstrap
