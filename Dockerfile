@@ -10,8 +10,15 @@ RUN apt-get -y install autoconf automake libtool make g++ pkg-config libboost-de
   libgeos-dev libgeos++-dev libpq-dev libbz2-dev libproj-dev \
   protobuf-compiler libprotobuf-dev lua5.2 liblua5.2-dev git postgresql-client-9.4
 
+RUN apt-get -y install cmake
+
 RUN git clone git://github.com/openstreetmap/osm2pgsql.git
-RUN cd osm2pgsql && ./autogen.sh && ./configure && make && make install
+RUN cd osm2pgsql && mkdir build && cd build && cmake .. && make && make install
 RUN export PATH=~/osm2pgsql/:$PATH
+RUN cd /
+
+RUN wget https://cache.ruby-lang.org/pub/ruby/2.3/ruby-2.3.1.tar.gz
+RUN tar xzvf ruby-2.3.1.tar.gz
+RUN cd ruby-2.3.1 && ./configure && make && make install
 
 ADD bootstrap.sh /etc/my_init.d/099_bootstrap
