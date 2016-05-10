@@ -1,4 +1,4 @@
-FROM boritzio/docker-base
+FROM factual/docker-cdh5-dev
 
 RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main' >> /etc/apt/sources.list.d/pgdg.list
 RUN apt-get install wget
@@ -16,9 +16,3 @@ RUN git clone git://github.com/openstreetmap/osm2pgsql.git
 RUN cd osm2pgsql && mkdir build && cd build && cmake .. && make && make install
 RUN export PATH=~/osm2pgsql/:$PATH
 RUN cd /
-
-RUN wget https://cache.ruby-lang.org/pub/ruby/2.3/ruby-2.3.1.tar.gz
-RUN tar xzvf ruby-2.3.1.tar.gz
-RUN cd ruby-2.3.1 && ./configure && make && make install
-
-ADD bootstrap.sh /etc/my_init.d/099_bootstrap
